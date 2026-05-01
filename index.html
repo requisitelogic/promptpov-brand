@@ -385,115 +385,362 @@
     <!-- ── MARKS & ICONS ── -->
     <section id="marks">
       <div class="section-label mb-8">04 — Logo Marks &amp; Icons</div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
 
-        <!-- Wordmark only -->
-        <div class="card p-6 space-y-4">
-          <div class="text-xs text-brand-gray font-mono">Wordmark — Horizontal</div>
-          <div class="space-y-4 py-4">
-            <div class="flex items-center gap-3">
-              <!-- Icon mark: viewfinder -->
-              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="36" height="36" rx="8" fill="#161B22"/>
-                <!-- Camera frame corners -->
-                <path d="M8 13V10H13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <path d="M23 10H28V13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <path d="M28 23V26H23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <path d="M13 26H8V23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <!-- Center dot -->
-                <circle cx="18" cy="18" r="3.5" fill="#4F8EF7"/>
-                <!-- Inner ring -->
-                <circle cx="18" cy="18" r="6" stroke="#4F8EF7" stroke-width="1" stroke-opacity="0.4"/>
-              </svg>
-              <div class="wordmark-md text-brand-white">prompt<span class="pov-accent">POV</span></div>
-            </div>
-            <div class="flex items-center gap-2.5">
-              <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="36" height="36" rx="8" fill="#161B22"/>
-                <path d="M8 13V10H13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <path d="M23 10H28V13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <path d="M28 23V26H23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <path d="M13 26H8V23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="18" cy="18" r="3.5" fill="#4F8EF7"/>
-                <circle cx="18" cy="18" r="6" stroke="#4F8EF7" stroke-width="1" stroke-opacity="0.4"/>
-              </svg>
-              <div class="wordmark-sm text-brand-white">prompt<span class="pov-accent">POV</span></div>
+      <!-- VIEWFINDER FAMILY -->
+      <div class="mb-2">
+        <div class="text-xs font-semibold text-brand-white mb-4 flex items-center gap-3">
+          <span class="tag" style="background:#1C2A3E; color:#4F8EF7;">Viewfinder Family</span>
+          <span class="text-brand-gray font-normal">Camera frame · lens · POV angle · point of view</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+          <!-- V1: Corner Brackets + Ring + Dot -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <path d="M9,17 L9,9 L17,9" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M31,9 L39,9 L39,17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M39,31 L39,39 L31,39" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M17,39 L9,39 L9,31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="24" cy="24" r="8" stroke="#4F8EF7" stroke-width="1" stroke-opacity="0.4"/>
+              <circle cx="24" cy="24" r="3.5" fill="#4F8EF7"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">Corner + Dot</div>
+              <div class="text-xs text-brand-gray mt-0.5">Classic viewfinder frame</div>
             </div>
           </div>
-          <div class="text-xs text-brand-gray">Icon mark + wordmark lockup. Icon = camera viewfinder motif.</div>
-        </div>
 
-        <!-- Icon mark variants -->
-        <div class="card p-6 space-y-4">
-          <div class="text-xs text-brand-gray font-mono">Icon Mark — Variants</div>
-          <div class="grid grid-cols-3 gap-4 py-4">
-            <!-- v1: viewfinder -->
-            <div class="flex flex-col items-center gap-2">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="48" height="48" rx="10" fill="#161B22"/>
-                <path d="M10 17V12H17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M31 12H38V17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M38 31V36H31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M17 36H10V31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="24" cy="24" r="5" fill="#4F8EF7"/>
-                <circle cx="24" cy="24" r="8.5" stroke="#4F8EF7" stroke-width="1.2" stroke-opacity="0.35"/>
-              </svg>
-              <div class="text-xs text-brand-gray text-center">Viewfinder</div>
-            </div>
-            <!-- v2: p mark -->
-            <div class="flex flex-col items-center gap-2">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="48" height="48" rx="10" fill="url(#grad1)"/>
-                <defs>
-                  <linearGradient id="grad1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#4F8EF7"/>
-                    <stop offset="100%" stop-color="#00C2FF"/>
-                  </linearGradient>
-                </defs>
-                <!-- stylized p -->
-                <text x="11" y="34" font-family="Inter, sans-serif" font-weight="900" font-size="30" fill="white" letter-spacing="-1">p</text>
-                <!-- POV accent dot -->
-                <circle cx="36" cy="13" r="4" fill="white" opacity="0.9"/>
-              </svg>
-              <div class="text-xs text-brand-gray text-center">Lettermark</div>
-            </div>
-            <!-- v3: split frame -->
-            <div class="flex flex-col items-center gap-2">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="48" height="48" rx="10" fill="#0D1117"/>
-                <!-- left half: prompt (solid) -->
-                <rect x="9" y="14" width="13" height="20" rx="3" fill="#F0F6FC" opacity="0.9"/>
-                <!-- right half: POV (outlined/accent) -->
-                <rect x="26" y="14" width="13" height="20" rx="3" fill="none" stroke="#4F8EF7" stroke-width="2"/>
-                <!-- divider line -->
-                <line x1="24" y1="12" x2="24" y2="36" stroke="#4F8EF7" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="2 2"/>
-              </svg>
-              <div class="text-xs text-brand-gray text-center">Split Frame</div>
+          <!-- V2: Aperture / Lens -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="16" stroke="#4F8EF7" stroke-width="1.5"/>
+              <circle cx="24" cy="24" r="4" fill="#4F8EF7"/>
+              <line x1="24" y1="20" x2="24" y2="8" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+              <line x1="24" y1="20" x2="24" y2="8" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round" transform="rotate(60,24,24)"/>
+              <line x1="24" y1="20" x2="24" y2="8" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round" transform="rotate(120,24,24)"/>
+              <line x1="24" y1="20" x2="24" y2="8" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round" transform="rotate(180,24,24)"/>
+              <line x1="24" y1="20" x2="24" y2="8" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round" transform="rotate(240,24,24)"/>
+              <line x1="24" y1="20" x2="24" y2="8" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round" transform="rotate(300,24,24)"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">Lens Aperture</div>
+              <div class="text-xs text-brand-gray mt-0.5">Camera iris · 6-spoke</div>
             </div>
           </div>
-          <div class="text-xs text-brand-gray">Three icon mark directions. Viewfinder is the strongest candidate.</div>
-        </div>
 
-        <!-- App icon mockup -->
-        <div class="card p-6 space-y-4">
-          <div class="text-xs text-brand-gray font-mono">App Icon — macOS</div>
-          <div class="flex items-center justify-center py-4">
-            <div style="width:120px; height:120px; border-radius:26px; background:linear-gradient(145deg, #1C2A3E 0%, #0D1117 100%); border:1px solid #4F8EF7; box-shadow: 0 0 40px rgba(79,142,247,0.25), inset 0 1px 0 rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;">
-              <svg width="60" height="60" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 17V12H17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M31 12H38V17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M38 31V36H31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M17 36H10V31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="24" cy="24" r="5" fill="#4F8EF7"/>
-                <circle cx="24" cy="24" r="8.5" stroke="#4F8EF7" stroke-width="1.2" stroke-opacity="0.35"/>
-              </svg>
-              <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.02em; color:#F0F6FC;">p<span style="color:#4F8EF7;">POV</span></div>
+          <!-- V3: Crosshair Reticle -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="16" stroke="#4F8EF7" stroke-width="1.5"/>
+              <line x1="24" y1="8" x2="24" y2="18" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+              <line x1="24" y1="30" x2="24" y2="40" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+              <line x1="8" y1="24" x2="18" y2="24" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+              <line x1="30" y1="24" x2="40" y2="24" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="24" cy="24" r="3" fill="#4F8EF7"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">Crosshair Reticle</div>
+              <div class="text-xs text-brand-gray mt-0.5">Targeting · precise POV</div>
             </div>
           </div>
-          <div class="text-xs text-brand-gray text-center">macOS icon at 120pt — viewfinder + compact wordmark</div>
-        </div>
 
+          <!-- V4: Camera Body -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <rect x="6" y="13" width="36" height="25" rx="5" stroke="#4F8EF7" stroke-width="2"/>
+              <rect x="18" y="8" width="8" height="6" rx="2" stroke="#4F8EF7" stroke-width="1.5"/>
+              <circle cx="24" cy="25" r="9" stroke="#4F8EF7" stroke-width="1.5"/>
+              <circle cx="24" cy="25" r="4" fill="#4F8EF7"/>
+              <circle cx="35" cy="17" r="2" fill="#4F8EF7" opacity="0.5"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">Camera Body</div>
+              <div class="text-xs text-brand-gray mt-0.5">Literal camera · instantly legible</div>
+            </div>
+          </div>
+
+        </div>
       </div>
+
+      <!-- COMMAND PROMPT FAMILY -->
+      <div class="mb-2 mt-8">
+        <div class="text-xs font-semibold text-brand-white mb-4 flex items-center gap-3">
+          <span class="tag" style="background:#1E2A1E; color:#3FB950;">Command Prompt Family</span>
+          <span class="text-brand-gray font-normal">Terminal · CLI · cue · signal · AI prompt</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+          <!-- P1: >_ Classic Terminal -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <path d="M7,14 L23,24 L7,34" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="27" y="29.5" width="13" height="3.5" rx="1.75" fill="#4F8EF7"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">&gt;_ Terminal</div>
+              <div class="text-xs text-brand-gray mt-0.5">Classic CLI prompt + cursor</div>
+            </div>
+          </div>
+
+          <!-- P2: Bold > with echo -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="g-p2" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#4F8EF7"/>
+                  <stop offset="100%" stop-color="#00C2FF"/>
+                </linearGradient>
+              </defs>
+              <path d="M8,10 L34,24 L8,38" stroke="url(#g-p2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18,15 L38,24 L18,33" stroke="url(#g-p2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">&gt; Bold + Echo</div>
+              <div class="text-xs text-brand-gray mt-0.5">Directional · gradient depth</div>
+            </div>
+          </div>
+
+          <!-- P3: $ Shell Prompt -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <text x="8" y="33" font-family="'JetBrains Mono', 'Courier New', monospace" font-weight="700" font-size="26" fill="#4F8EF7">$</text>
+              <rect x="31" y="19" width="10" height="16" rx="2" fill="#4F8EF7" opacity="0.85"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">$ Shell</div>
+              <div class="text-xs text-brand-gray mt-0.5">UNIX / bash convention</div>
+            </div>
+          </div>
+
+          <!-- P4: Terminal Window -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <rect x="4" y="7" width="40" height="34" rx="5" stroke="#4F8EF7" stroke-width="1.5"/>
+              <line x1="4" y1="15" x2="44" y2="15" stroke="#4F8EF7" stroke-width="1" opacity="0.4"/>
+              <circle cx="11" cy="11" r="2" fill="#4F8EF7" opacity="0.4"/>
+              <circle cx="18" cy="11" r="2" fill="#4F8EF7" opacity="0.4"/>
+              <circle cx="25" cy="11" r="2" fill="#4F8EF7" opacity="0.4"/>
+              <path d="M9,22 L18,27.5 L9,33" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="20" y="31" width="10" height="3" rx="1.5" fill="#4F8EF7"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">Terminal Window</div>
+              <div class="text-xs text-brand-gray mt-0.5">App frame · macOS native feel</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- HYBRID / FUSION FAMILY -->
+      <div class="mb-2 mt-8">
+        <div class="text-xs font-semibold text-brand-white mb-4 flex items-center gap-3">
+          <span class="tag" style="background:#2A1C3E; color:#C084FC;">Hybrid / Fusion</span>
+          <span class="text-brand-gray font-normal">Prompt + viewfinder · both brand concepts in one mark</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+          <!-- H1: Viewfinder frames a > (STRONGEST) -->
+          <div class="card p-5 flex flex-col items-center gap-3" style="border-color:#C084FC; box-shadow:0 0 0 1px #C084FC, 0 4px 20px rgba(192,132,252,0.12);">
+            <div class="absolute" style="position:relative;"><span class="tag" style="background:#2A1C3E; color:#C084FC; position:absolute; top:-8px; right:-8px; font-size:0.55rem;">✦ Strongest</span></div>
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="g-h1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#4F8EF7"/>
+                  <stop offset="100%" stop-color="#00C2FF"/>
+                </linearGradient>
+              </defs>
+              <path d="M9,17 L9,9 L17,9" stroke="url(#g-h1)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M31,9 L39,9 L39,17" stroke="url(#g-h1)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M39,31 L39,39 L31,39" stroke="url(#g-h1)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M17,39 L9,39 L9,31" stroke="url(#g-h1)" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M16,16 L30,24 L16,32" stroke="url(#g-h1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">Frame + &gt; Prompt</div>
+              <div class="text-xs text-brand-gray mt-0.5">Viewfinder frames the chevron · pure brand fusion</div>
+            </div>
+          </div>
+
+          <!-- H2: > inside crosshair ring -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="17" stroke="#4F8EF7" stroke-width="1.5"/>
+              <path d="M13,17 L27,24 L13,31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="36" cy="24" r="2.5" fill="#4F8EF7"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">Ring + &gt; Prompt</div>
+              <div class="text-xs text-brand-gray mt-0.5">Lens ring contains chevron · targeting</div>
+            </div>
+          </div>
+
+          <!-- H3: > points to lens (> ●) -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient id="g-h3" x1="0" y1="0" x2="48" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#4F8EF7"/>
+                  <stop offset="100%" stop-color="#00C2FF"/>
+                </linearGradient>
+              </defs>
+              <path d="M5,15 L17,24 L5,33" stroke="url(#g-h3)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="19" y1="24" x2="26" y2="24" stroke="#4F8EF7" stroke-width="1.5" stroke-dasharray="2 2"/>
+              <circle cx="36" cy="24" r="8" stroke="url(#g-h3)" stroke-width="2"/>
+              <circle cx="36" cy="24" r="3" fill="url(#g-h3)"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">&gt; → ● Prompt to Lens</div>
+              <div class="text-xs text-brand-gray mt-0.5">Brand made literal: prompt points to POV</div>
+            </div>
+          </div>
+
+          <!-- H4: [ >_ ] brackets frame prompt -->
+          <div class="card p-5 flex flex-col items-center gap-3">
+            <svg width="72" height="72" viewBox="0 0 48 48" fill="none">
+              <path d="M14,8 L7,8 L7,40 L14,40" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M34,8 L41,8 L41,40 L34,40" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M13,19 L22,24 L13,29" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="25" y="28" width="10" height="3" rx="1.5" fill="#4F8EF7"/>
+            </svg>
+            <div class="text-center">
+              <div class="text-xs font-semibold text-brand-white">[ &gt;_ ] Code Literal</div>
+              <div class="text-xs text-brand-gray mt-0.5">Square brackets frame the prompt · dev-native</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TOP 3 APP ICON CANDIDATES -->
+      <div class="mt-8">
+        <div class="section-label mb-5">Top 3 Candidates — App Icon Scale (96pt · 48pt · 24pt)</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <!-- Candidate A: Frame + Prompt (H1) -->
+          <div class="card p-6">
+            <div class="text-xs text-brand-gray font-mono mb-4">Candidate A · Frame + &gt; Prompt</div>
+            <div class="flex items-center gap-5 mb-4">
+              <div style="width:96px;height:96px;border-radius:22px;background:linear-gradient(145deg,#1C2A3E,#0D1117);border:1px solid #4F8EF7;box-shadow:0 0 32px rgba(79,142,247,0.25),inset 0 1px 0 rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="58" height="58" viewBox="0 0 48 48" fill="none">
+                  <defs><linearGradient id="ga1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+                  <path d="M9,17 L9,9 L17,9" stroke="url(#ga1)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M31,9 L39,9 L39,17" stroke="url(#ga1)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M39,31 L39,39 L31,39" stroke="url(#ga1)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M17,39 L9,39 L9,31" stroke="url(#ga1)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M16,16 L30,24 L16,32" stroke="url(#ga1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="width:48px;height:48px;border-radius:11px;background:linear-gradient(145deg,#1C2A3E,#0D1117);border:1px solid #4F8EF7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                  <defs><linearGradient id="ga1b" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+                  <path d="M9,17 L9,9 L17,9" stroke="url(#ga1b)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M31,9 L39,9 L39,17" stroke="url(#ga1b)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M39,31 L39,39 L31,39" stroke="url(#ga1b)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M17,39 L9,39 L9,31" stroke="url(#ga1b)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M16,16 L30,24 L16,32" stroke="url(#ga1b)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="width:24px;height:24px;border-radius:5px;background:#1C2A3E;border:1px solid #4F8EF7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="15" height="15" viewBox="0 0 48 48" fill="none">
+                  <path d="M9,17 L9,9 L17,9" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M31,9 L39,9 L39,17" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M39,31 L39,39 L31,39" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M17,39 L9,39 L9,31" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M16,16 L30,24 L16,32" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 mb-3">
+              <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+                <defs><linearGradient id="ga1c" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+                <path d="M9,17 L9,9 L17,9" stroke="url(#ga1c)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M31,9 L39,9 L39,17" stroke="url(#ga1c)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M39,31 L39,39 L31,39" stroke="url(#ga1c)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M17,39 L9,39 L9,31" stroke="url(#ga1c)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M16,16 L30,24 L16,32" stroke="url(#ga1c)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div style="font-size:1.3rem;font-weight:800;letter-spacing:-0.03em;" class="text-brand-white">prompt<span class="pov-accent">POV</span></div>
+            </div>
+            <div class="text-xs text-brand-gray leading-relaxed">Both concepts in one clean mark. Reads at every size. The corner brackets = camera frame; the chevron = prompt. Together they say <em>viewpoint you're cued toward</em>.</div>
+          </div>
+
+          <!-- Candidate B: >_ Terminal (gradient bg) -->
+          <div class="card p-6">
+            <div class="text-xs text-brand-gray font-mono mb-4">Candidate B · &gt;_ Terminal Prompt</div>
+            <div class="flex items-center gap-5 mb-4">
+              <div style="width:96px;height:96px;border-radius:22px;background:linear-gradient(145deg,#4F8EF7,#00C2FF);box-shadow:0 0 32px rgba(79,142,247,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="58" height="58" viewBox="0 0 48 48" fill="none">
+                  <path d="M7,14 L23,24 L7,34" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="27" y="29.5" width="13" height="3.5" rx="1.75" fill="white"/>
+                </svg>
+              </div>
+              <div style="width:48px;height:48px;border-radius:11px;background:linear-gradient(145deg,#4F8EF7,#00C2FF);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                  <path d="M7,14 L23,24 L7,34" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <rect x="27" y="29.5" width="13" height="3.5" rx="1.75" fill="white"/>
+                </svg>
+              </div>
+              <div style="width:24px;height:24px;border-radius:5px;background:linear-gradient(145deg,#4F8EF7,#00C2FF);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="15" height="15" viewBox="0 0 48 48" fill="none">
+                  <path d="M8,13 L26,24 L8,35" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 mb-3">
+              <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(145deg,#4F8EF7,#00C2FF);display:flex;align-items:center;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 48 48" fill="none">
+                  <path d="M8,14 L24,24 L8,34" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div style="font-size:1.3rem;font-weight:800;letter-spacing:-0.03em;" class="text-brand-white">prompt<span class="pov-accent">POV</span></div>
+            </div>
+            <div class="text-xs text-brand-gray leading-relaxed">Maximum legibility at all sizes. Gradient background pops on any surface. Nails the prompt concept but is lighter on the camera/POV reference.</div>
+          </div>
+
+          <!-- Candidate C: > points to lens (H3) -->
+          <div class="card p-6">
+            <div class="text-xs text-brand-gray font-mono mb-4">Candidate C · &gt; → ● Prompt to Lens</div>
+            <div class="flex items-center gap-5 mb-4">
+              <div style="width:96px;height:96px;border-radius:22px;background:linear-gradient(145deg,#1C2A3E,#0D1117);border:1px solid #4F8EF7;box-shadow:0 0 32px rgba(79,142,247,0.25),inset 0 1px 0 rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="58" height="58" viewBox="0 0 48 48" fill="none">
+                  <defs><linearGradient id="gc1" x1="0" y1="0" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+                  <path d="M5,15 L17,24 L5,33" stroke="url(#gc1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="19" y1="24" x2="26" y2="24" stroke="#4F8EF7" stroke-width="1.5" stroke-dasharray="2 2"/>
+                  <circle cx="36" cy="24" r="8" stroke="url(#gc1)" stroke-width="2"/>
+                  <circle cx="36" cy="24" r="3" fill="url(#gc1)"/>
+                </svg>
+              </div>
+              <div style="width:48px;height:48px;border-radius:11px;background:linear-gradient(145deg,#1C2A3E,#0D1117);border:1px solid #4F8EF7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+                  <defs><linearGradient id="gc2" x1="0" y1="0" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+                  <path d="M5,15 L17,24 L5,33" stroke="url(#gc2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="36" cy="24" r="8" stroke="url(#gc2)" stroke-width="2"/>
+                  <circle cx="36" cy="24" r="3" fill="url(#gc2)"/>
+                </svg>
+              </div>
+              <div style="width:24px;height:24px;border-radius:5px;background:#1C2A3E;border:1px solid #4F8EF7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="15" height="15" viewBox="0 0 48 48" fill="none">
+                  <path d="M6,15 L18,24 L6,33" stroke="#4F8EF7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="38" cy="24" r="7" stroke="#4F8EF7" stroke-width="3"/>
+                </svg>
+              </div>
+            </div>
+            <div class="flex items-center gap-3 mb-3">
+              <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+                <defs><linearGradient id="gc3" x1="0" y1="0" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+                <path d="M5,15 L17,24 L5,33" stroke="url(#gc3)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="36" cy="24" r="7" stroke="url(#gc3)" stroke-width="2"/>
+                <circle cx="36" cy="24" r="3" fill="url(#gc3)"/>
+              </svg>
+              <div style="font-size:1.3rem;font-weight:800;letter-spacing:-0.03em;" class="text-brand-white">prompt<span class="pov-accent">POV</span></div>
+            </div>
+            <div class="text-xs text-brand-gray leading-relaxed">The brand concept made literal. Prompt chevron points directly at a lens circle. Strongest storytelling but gets tight at 24pt — better suited for 48pt+.</div>
+          </div>
+
+        </div>
+      </div>
+
     </section>
 
     <!-- ── USAGE EXAMPLES ── -->
