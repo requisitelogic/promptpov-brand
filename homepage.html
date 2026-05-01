@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>promptPOV — smart widgets + private AI HUD for video calls</title>
+  <meta name="description" content="Smart widgets layered on your outgoing video feed. A private AI-powered HUD only you can see. On Zoom, Teams, FaceTime, Meet, and Webex." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              navy: '#0D1117',
+              card: '#161B22',
+              border: '#21262D',
+              muted: '#2D333B',
+              blue: '#4F8EF7',
+              cyan: '#00C2FF',
+              amber: '#F5A623',
+              green: '#3FB950',
+              white: '#F0F6FC',
+              gray: '#8B949E',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #0D1117; color: #F0F6FC; }
+    .gradient-btn { background: linear-gradient(135deg, #4F8EF7, #00C2FF); transition: box-shadow 0.2s, transform 0.15s; }
+    .gradient-btn:hover { box-shadow: 0 0 24px rgba(79,142,247,0.4); transform: translateY(-1px); }
+    .ghost-btn { background: transparent; border: 1px solid #21262D; color: #8B949E; transition: border-color 0.2s, color 0.2s; }
+    .ghost-btn:hover { border-color: #4F8EF7; color: #F0F6FC; }
+    .card { background: #161B22; border: 1px solid #21262D; border-radius: 12px; }
+    .card-highlight { border-color: #4F8EF7; box-shadow: 0 0 0 1px #4F8EF7, 0 8px 32px rgba(79,142,247,0.12); }
+    .dot-grid { background-image: radial-gradient(circle, #21262D 1px, transparent 1px); background-size: 24px 24px; }
+    .hud-panel { background: rgba(13,17,23,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(79,142,247,0.25); border-radius: 10px; }
+    .section-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4F8EF7; }
+    .gradient-text { background: linear-gradient(135deg, #4F8EF7, #00C2FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .amber-text { color: #F5A623; }
+    .feature-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(79,142,247,0.15); } 50% { box-shadow: 0 0 40px rgba(79,142,247,0.3); } }
+    .hero-glow { animation: pulse-glow 4s ease-in-out infinite; }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <!-- ══════════════════════════════════════ NAV ══════════════════════════════════════ -->
+  <nav class="sticky top-0 z-50 border-b border-brand-border" style="background: rgba(13,17,23,0.92); backdrop-filter: blur(16px);">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <!-- Logo lockup -->
+      <a href="/" class="flex items-center gap-2.5 group">
+        <svg width="28" height="28" viewBox="0 0 48 48" fill="none" class="transition-transform group-hover:scale-105">
+          <defs><linearGradient id="nav-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+          <path d="M9,17 L9,9 L17,9" stroke="url(#nav-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M31,9 L39,9 L39,17" stroke="url(#nav-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M39,31 L39,39 L31,39" stroke="url(#nav-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M17,39 L9,39 L9,31" stroke="url(#nav-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M16,16 L30,24 L16,32" stroke="url(#nav-g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span style="font-size:1.15rem; font-weight:800; letter-spacing:-0.02em;" class="text-brand-white">prompt<span style="color:#4F8EF7;">POV</span></span>
+      </a>
+      <!-- Nav links -->
+      <div class="flex items-center gap-6">
+        <a href="#pricing" class="text-sm text-brand-gray hover:text-brand-white transition-colors">Pricing</a>
+        <a href="https://app.promptpov.com/login" class="text-sm text-brand-gray hover:text-brand-white transition-colors">Sign in</a>
+        <a href="https://app.promptpov.com/download" class="gradient-btn text-white font-semibold text-sm px-4 py-2 rounded-lg inline-block">Get promptPOV</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════ HERO ══════════════════════════════════════ -->
+  <section class="dot-grid border-b border-brand-border overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Left: Copy -->
+        <div>
+          <div class="section-tag mb-5">For video professionals</div>
+          <h1 style="font-size:3.2rem; font-weight:900; letter-spacing:-0.04em; line-height:1.1;" class="text-brand-white mb-6">
+            What they see<br/>of your <span class="gradient-text">POV.</span>
+          </h1>
+          <p style="font-size:1.2rem; line-height:1.65;" class="text-brand-gray mb-3 max-w-lg">
+            What only you see in your <span class="text-brand-white font-medium">POV.</span>
+          </p>
+          <p style="font-size:1.05rem; line-height:1.7;" class="text-brand-gray mb-8 max-w-lg">
+            Smart widgets layered on your outgoing video feed. A private AI-powered HUD only you can see. On Zoom, Teams, FaceTime, Meet, and Webex.
+          </p>
+          <div class="flex flex-wrap items-center gap-3 mb-5">
+            <a href="https://app.promptpov.com/download" class="gradient-btn text-white font-semibold text-base px-6 py-3 rounded-lg inline-block">Download for macOS — Free</a>
+            <a href="#pricing" class="ghost-btn text-sm font-medium px-5 py-3 rounded-lg inline-block">See pricing →</a>
+          </div>
+          <p class="text-xs text-brand-gray font-mono">macOS 14+ · Apple Silicon + Intel · Currently in private beta</p>
+        </div>
+
+        <!-- Right: Visual mockup -->
+        <div class="relative flex items-center justify-center">
+          <!-- Main video preview -->
+          <div class="hero-glow" style="width:420px; max-width:100%; aspect-ratio:16/10; border-radius:16px; background:linear-gradient(145deg, #1A1A2E, #0D0D1A); border:1px solid #21262D; position:relative; overflow:hidden;">
+            <!-- Fake webcam person -->
+            <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-55%); width:80px; height:80px; border-radius:50%; background:#2D333B; display:flex; align-items:center; justify-content:center; font-size:2.5rem;">👤</div>
+
+            <!-- Public widget: name card (bottom left) -->
+            <div style="position:absolute; bottom:12px; left:12px; z-index:2;">
+              <div style="background:rgba(13,17,23,0.82); backdrop-filter:blur(8px); border:1px solid rgba(79,142,247,0.3); border-radius:8px; padding:7px 11px; display:flex; align-items:center; gap:7px;">
+                <svg width="14" height="14" viewBox="0 0 48 48" fill="none">
+                  <path d="M9,17 L9,9 L17,9" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M31,9 L39,9 L39,17" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M39,31 L39,39 L31,39" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M17,39 L9,39 L9,31" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M16,16 L30,24 L16,32" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div>
+                  <div style="font-size:0.7rem; font-weight:700; color:#F0F6FC;">Brandon Burk</div>
+                  <div style="font-size:0.55rem; color:#8B949E;">Requisite Logic · 2:34 PM CDT</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Public widget: weather (top right) -->
+            <div style="position:absolute; top:12px; right:12px; z-index:2;">
+              <div style="background:rgba(13,17,23,0.82); backdrop-filter:blur(8px); border:1px solid rgba(79,142,247,0.2); border-radius:6px; padding:5px 9px; font-size:0.6rem; color:#8B949E;">
+                ☀️ 78°F · Edmond, OK
+              </div>
+            </div>
+
+            <!-- "What they see" label -->
+            <div style="position:absolute; top:12px; left:12px; z-index:2;">
+              <span style="font-size:0.55rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:#4F8EF7; background:rgba(79,142,247,0.1); padding:3px 7px; border-radius:4px;">On camera</span>
+            </div>
+          </div>
+
+          <!-- HUD panel floating beside (private) -->
+          <div style="position:absolute; right:-30px; top:20px; z-index:5; width:180px;" class="hidden lg:block">
+            <div class="hud-panel p-3 space-y-2">
+              <div style="position:absolute; top:-8px; right:8px;"><span style="font-size:0.5rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; background:rgba(245,166,35,0.15); color:#F5A623; padding:2px 6px; border-radius:3px;">HUD only</span></div>
+              <div class="flex items-center justify-between mt-2">
+                <div style="font-size:0.6rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#4F8EF7;">AI Assistant</div>
+              </div>
+              <div style="background:rgba(79,142,247,0.08); border-radius:5px; padding:6px; font-size:0.6rem; color:#8B949E; line-height:1.5;">
+                Next: <span style="color:#F0F6FC; font-weight:500;">1:1 with Alice</span> in <span style="color:#F5A623; font-weight:600;">8 min</span>
+              </div>
+              <div style="display:flex; gap:5px;">
+                <div style="flex:1; background:rgba(79,142,247,0.06); border:1px solid rgba(79,142,247,0.15); border-radius:5px; padding:4px; text-align:center; font-size:0.6rem; color:#8B949E;">⏱ 42:00</div>
+                <div style="flex:1; background:rgba(245,166,35,0.06); border:1px solid rgba(245,166,35,0.15); border-radius:5px; padding:4px; text-align:center; font-size:0.6rem; color:#F5A623;">🍅 Focus</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ DUAL EXPERIENCE ══════════════════════════════════════ -->
+  <section class="border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- PUBLIC WIDGETS -->
+        <div class="card p-8 group">
+          <div class="flex items-center gap-3 mb-6">
+            <span style="font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:rgba(79,142,247,0.12); color:#4F8EF7; padding:4px 10px; border-radius:5px;">What they see</span>
+          </div>
+          <h2 style="font-size:1.75rem; font-weight:800; letter-spacing:-0.03em; line-height:1.2;" class="text-brand-white mb-4">
+            Public widgets,<br/>in the video feed.
+          </h2>
+          <p class="text-brand-gray mb-6 leading-relaxed" style="font-size:0.95rem;">
+            Public widgets render directly into your outgoing video. Everyone on the call sees them. Designed to be tasteful and slow-updating — never distracting from the conversation.
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="feature-icon" style="background:rgba(79,142,247,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-brand-white">Branding</div>
+                <div class="text-xs text-brand-gray">Name card, role, company logo, social handle</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="feature-icon" style="background:rgba(79,142,247,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-brand-white">Context</div>
+                <div class="text-xs text-brand-gray">Local time, local weather</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="feature-icon" style="background:rgba(79,142,247,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-brand-white">Identity</div>
+                <div class="text-xs text-brand-gray">Pronouns, location, time zone</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRIVATE HUD -->
+        <div class="card card-highlight p-8 group">
+          <div class="flex items-center gap-3 mb-6">
+            <span style="font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:rgba(245,166,35,0.12); color:#F5A623; padding:4px 10px; border-radius:5px;">What only you see</span>
+          </div>
+          <h2 style="font-size:1.75rem; font-weight:800; letter-spacing:-0.03em; line-height:1.2;" class="text-brand-white mb-4">
+            Private HUD,<br/>on your screen.
+          </h2>
+          <p class="text-brand-gray mb-6 leading-relaxed" style="font-size:0.95rem;">
+            Private HUD widgets render on translucent windows pinned to your screen. Invisible to other call participants. The HUD pops in when you join a meeting and hides when you leave.
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="feature-icon" style="background:rgba(245,166,35,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-brand-white">AI Assistant</div>
+                <div class="text-xs text-brand-gray">BYOK Anthropic or OpenAI · streaming responses · persistent history</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="feature-icon" style="background:rgba(245,166,35,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="3"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-brand-white">Pre-meeting briefing</div>
+                <div class="text-xs text-brand-gray">Calendar-aware, AI-drafted · one click to ask a follow-up</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="feature-icon" style="background:rgba(245,166,35,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-brand-white">Teleprompter</div>
+                <div class="text-xs text-brand-gray">Scrolling script under your camera, adjustable speed</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="feature-icon" style="background:rgba(245,166,35,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-brand-white">Timers</div>
+                <div class="text-xs text-brand-gray">Agenda timer, hard stop, pomodoro — keep meetings on time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ HOW IT WORKS ══════════════════════════════════════ -->
+  <section class="border-b border-brand-border dot-grid">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-14">
+        <div class="section-tag mb-3">How it works</div>
+        <h2 style="font-size:2.2rem; font-weight:900; letter-spacing:-0.03em;" class="text-brand-white">Three steps. No admin rights.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Step 1 -->
+        <div class="card p-7 relative">
+          <div style="width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,#4F8EF7,#00C2FF); display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:800; color:white;" class="mb-5">1</div>
+          <h3 class="text-brand-white font-bold text-lg mb-2">Download &amp; activate</h3>
+          <p class="text-brand-gray text-sm leading-relaxed">Download the macOS app and activate the camera extension. One-click activation through System Settings. No sudo, no admin rights — works on managed Macs.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card p-7 relative">
+          <div style="width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,#4F8EF7,#00C2FF); display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:800; color:white;" class="mb-5">2</div>
+          <h3 class="text-brand-white font-bold text-lg mb-2">Pick the virtual camera</h3>
+          <p class="text-brand-gray text-sm leading-relaxed">Choose <span class="text-brand-white font-mono text-xs">"promptPOV Virtual Camera"</span> in your meeting app. Works with Zoom, Microsoft Teams, FaceTime, Google Meet, Webex, QuickTime, and any other app that lets you choose a camera.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card p-7 relative">
+          <div style="width:36px; height:36px; border-radius:10px; background:linear-gradient(135deg,#4F8EF7,#00C2FF); display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:800; color:white;" class="mb-5">3</div>
+          <h3 class="text-brand-white font-bold text-lg mb-2">Configure widgets</h3>
+          <p class="text-brand-gray text-sm leading-relaxed">Drag, snap, resize in the dashboard. Changes sync to your Mac in seconds. Your AI keys stay in your local Keychain — promptPOV never sees them.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ PRICING ══════════════════════════════════════ -->
+  <section id="pricing" class="border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="text-center mb-14">
+        <div class="section-tag mb-3">Pricing</div>
+        <h2 style="font-size:2.2rem; font-weight:900; letter-spacing:-0.03em;" class="text-brand-white mb-3">Built for video meetings.</h2>
+        <p class="text-brand-gray text-lg">Priced for solo professionals.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+
+        <!-- Free -->
+        <div class="card p-7 flex flex-col">
+          <div class="text-sm font-bold text-brand-gray mb-1">Free</div>
+          <div class="text-xs text-brand-gray mb-5">For trying it out.</div>
+          <div class="mb-6">
+            <span style="font-size:2.5rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">$0</span>
+            <span class="text-brand-gray text-sm">/mo</span>
+          </div>
+          <div class="space-y-2.5 mb-8 flex-1">
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> 3 public widgets</div>
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> Basic widget templates</div>
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span style="color:#8B949E;">·</span> "Powered by promptPOV" watermark</div>
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span style="color:#8B949E;">·</span> No HUD access</div>
+          </div>
+          <a href="https://app.promptpov.com/download" class="ghost-btn text-center font-semibold text-sm py-3 rounded-lg block">Download free</a>
+        </div>
+
+        <!-- Pro -->
+        <div class="card card-highlight p-7 flex flex-col relative">
+          <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%);">
+            <span style="font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:linear-gradient(135deg,#4F8EF7,#00C2FF); color:white; padding:4px 14px; border-radius:999px;">Most popular</span>
+          </div>
+          <div class="text-sm font-bold text-brand-white mb-1">Pro</div>
+          <div class="text-xs text-brand-gray mb-5">Everything except AI.</div>
+          <div class="mb-2">
+            <span style="font-size:2.5rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">$19</span>
+            <span class="text-brand-gray text-sm">/mo</span>
+          </div>
+          <div class="text-xs text-brand-gray mb-5 font-mono">or $190/year ($15.83/mo, save 17%)</div>
+          <div class="space-y-2.5 mb-8 flex-1">
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> All public widgets, no watermark</div>
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> All widget templates + customization</div>
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> Full non-AI HUD</div>
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> Email support</div>
+          </div>
+          <a href="#" class="gradient-btn text-center text-white font-semibold text-sm py-3 rounded-lg block">Coming soon</a>
+        </div>
+
+        <!-- Pro + AI -->
+        <div class="card p-7 flex flex-col">
+          <div class="text-sm font-bold text-brand-white mb-1">Pro + AI</div>
+          <div class="text-xs amber-text mb-5">With the AI copilot.</div>
+          <div class="mb-2">
+            <span style="font-size:2.5rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">$29</span>
+            <span class="text-brand-gray text-sm">/mo</span>
+          </div>
+          <div class="text-xs text-brand-gray mb-5 font-mono">or $290/year ($24.16/mo, save 17%)</div>
+          <div class="space-y-2.5 mb-8 flex-1">
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> Everything in Pro</div>
+            <div class="flex items-center gap-2 text-sm text-brand-amber"><span>✦</span> AI Assistant (BYOK)</div>
+            <div class="flex items-center gap-2 text-sm text-brand-amber"><span>✦</span> Pre-meeting AI briefing</div>
+            <div class="flex items-center gap-2 text-sm text-brand-amber"><span>✦</span> Suggested follow-up chips</div>
+            <div class="flex items-center gap-2 text-sm text-brand-gray"><span class="text-brand-green">✓</span> Priority support, early access</div>
+          </div>
+          <a href="#" class="ghost-btn text-center font-semibold text-sm py-3 rounded-lg block" style="border-color:#F5A623; color:#F5A623;">Coming soon</a>
+        </div>
+
+      </div>
+
+      <!-- Pricing notes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-12 max-w-4xl mx-auto">
+        <div class="card p-5">
+          <div class="text-sm font-semibold text-brand-white mb-1.5">🔑 Bring your own AI key.</div>
+          <p class="text-xs text-brand-gray leading-relaxed">Pro+AI's AI Assistant uses your own Anthropic or OpenAI API key. The key is stored in your macOS Keychain and never sent to promptPOV's servers. We don't markup inference costs — you pay your provider directly for what you use.</p>
+        </div>
+        <div class="card p-5">
+          <div class="text-sm font-semibold text-brand-white mb-1.5">🆓 14-day Pro trial for new signups.</div>
+          <p class="text-xs text-brand-gray leading-relaxed">No card required. At the end of the trial, your account converts to Free — we never auto-charge. You can upgrade from your dashboard whenever you're ready.</p>
+        </div>
+        <div class="card p-5">
+          <div class="text-sm font-semibold text-brand-white mb-1.5">👤 Per user, not per call.</div>
+          <p class="text-xs text-brand-gray leading-relaxed">Flat monthly subscription. No per-call, per-hour, or per-token billing. Use it on every meeting in your day or only the important ones — same price.</p>
+        </div>
+        <div class="card p-5">
+          <div class="text-sm font-semibold text-brand-white mb-1.5">🧪 Currently in private beta.</div>
+          <p class="text-xs text-brand-gray leading-relaxed">Free is the only tier you can sign up for today. Pro / Pro+AI go live closer to public launch. Beta users get advance notice and a fair upgrade window.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ CTA ══════════════════════════════════════ -->
+  <section class="dot-grid">
+    <div class="max-w-6xl mx-auto px-6 py-20 text-center">
+      <svg width="56" height="56" viewBox="0 0 48 48" fill="none" class="mx-auto mb-6">
+        <defs><linearGradient id="cta-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+        <path d="M9,17 L9,9 L17,9" stroke="url(#cta-g)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M31,9 L39,9 L39,17" stroke="url(#cta-g)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M39,31 L39,39 L31,39" stroke="url(#cta-g)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M17,39 L9,39 L9,31" stroke="url(#cta-g)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M16,16 L30,24 L16,32" stroke="url(#cta-g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 style="font-size:2.2rem; font-weight:900; letter-spacing:-0.03em;" class="text-brand-white mb-4">Ready to try it?</h2>
+      <p class="text-brand-gray text-lg max-w-md mx-auto mb-8">Currently in private beta. Free tier is fully functional — no card, no trial timer.</p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="https://app.promptpov.com/download" class="gradient-btn text-white font-semibold text-base px-7 py-3.5 rounded-lg inline-block">Download for macOS</a>
+        <a href="#pricing" class="ghost-btn text-sm font-medium px-6 py-3.5 rounded-lg inline-block">See pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════ FOOTER ══════════════════════════════════════ -->
+  <footer class="border-t border-brand-border py-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <svg width="20" height="20" viewBox="0 0 48 48" fill="none">
+          <defs><linearGradient id="ft-g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4F8EF7"/><stop offset="100%" stop-color="#00C2FF"/></linearGradient></defs>
+          <path d="M9,17 L9,9 L17,9" stroke="url(#ft-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M31,9 L39,9 L39,17" stroke="url(#ft-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M39,31 L39,39 L31,39" stroke="url(#ft-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M17,39 L9,39 L9,31" stroke="url(#ft-g)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M16,16 L30,24 L16,32" stroke="url(#ft-g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span style="font-size:0.9rem; font-weight:700;" class="text-brand-white">prompt<span style="color:#4F8EF7;">POV</span></span>
+        <span class="text-brand-gray text-xs">— a product of Requisite Logic LLC.</span>
+      </div>
+      <div class="flex items-center gap-5 text-xs text-brand-gray">
+        <a href="/pricing" class="hover:text-brand-white transition-colors">Pricing</a>
+        <a href="/privacy" class="hover:text-brand-white transition-colors">Privacy</a>
+        <a href="/terms" class="hover:text-brand-white transition-colors">Terms</a>
+        <a href="mailto:brandon@requisitelogic.com" class="hover:text-brand-white transition-colors">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
