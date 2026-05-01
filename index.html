@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>promptPOV — Brand Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              navy: '#0D1117',
+              card: '#161B22',
+              border: '#21262D',
+              muted: '#2D333B',
+              blue: '#4F8EF7',
+              cyan: '#00C2FF',
+              amber: '#F5A623',
+              green: '#3FB950',
+              white: '#F0F6FC',
+              gray: '#8B949E',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #0D1117; color: #F0F6FC; }
+
+    .wordmark-sm    { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+    .wordmark-md    { font-size: 2rem;    font-weight: 800; letter-spacing: -0.03em; }
+    .wordmark-lg    { font-size: 3.5rem;  font-weight: 900; letter-spacing: -0.04em; }
+    .wordmark-xl    { font-size: 5.5rem;  font-weight: 900; letter-spacing: -0.05em; }
+
+    .pov-accent     { color: #4F8EF7; }
+    .pov-accent-c   { color: #00C2FF; }
+    .pov-accent-a   { color: #F5A623; }
+
+    .tag { display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; }
+
+    .card { background: #161B22; border: 1px solid #21262D; border-radius: 12px; }
+    .card-inner { background: #0D1117; border: 1px solid #21262D; border-radius: 8px; }
+
+    .swatch { width: 100%; height: 56px; border-radius: 8px; }
+    .divider { border-color: #21262D; }
+
+    /* Icon mark */
+    .mark-icon { display: inline-flex; align-items: center; justify-content: center; }
+
+    /* Gradient text */
+    .gradient-blue { background: linear-gradient(135deg, #4F8EF7, #00C2FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gradient-amber { background: linear-gradient(135deg, #F5A623, #FF9A3C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* Pill nav */
+    .nav-pill { background: #161B22; border: 1px solid #21262D; border-radius: 999px; }
+
+    /* Hover cards */
+    .variant-card { transition: border-color 0.2s, box-shadow 0.2s; cursor: default; }
+    .variant-card:hover { border-color: #4F8EF7; box-shadow: 0 0 0 1px #4F8EF7, 0 8px 32px rgba(79,142,247,0.12); }
+
+    /* Dot grid bg */
+    .dot-grid { background-image: radial-gradient(circle, #21262D 1px, transparent 1px); background-size: 24px 24px; }
+
+    /* Mockup HUD */
+    .hud-panel { background: rgba(13,17,23,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(79,142,247,0.25); border-radius: 10px; }
+
+    /* Section label */
+    .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #8B949E; }
+
+    /* Subtle glow */
+    .glow-blue { box-shadow: 0 0 24px rgba(79,142,247,0.18); }
+    .glow-amber { box-shadow: 0 0 24px rgba(245,166,35,0.18); }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen">
+
+  <!-- Nav -->
+  <nav class="sticky top-0 z-50 border-b border-brand-border" style="background: rgba(13,17,23,0.9); backdrop-filter: blur(12px);">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <span class="wordmark-sm text-brand-white">prompt<span class="pov-accent">POV</span></span>
+      <div class="nav-pill px-4 py-1.5 flex items-center gap-5 text-xs font-medium text-brand-gray">
+        <a href="#variants" class="hover:text-brand-white transition-colors">Variants</a>
+        <a href="#colors" class="hover:text-brand-white transition-colors">Colors</a>
+        <a href="#typography" class="hover:text-brand-white transition-colors">Typography</a>
+        <a href="#marks" class="hover:text-brand-white transition-colors">Marks</a>
+        <a href="#usage" class="hover:text-brand-white transition-colors">Usage</a>
+        <a href="#mockups" class="hover:text-brand-white transition-colors">Mockups</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="dot-grid border-b border-brand-border">
+    <div class="max-w-6xl mx-auto px-6 py-20 text-center">
+      <div class="section-label mb-4">Brand Design System · Exploration</div>
+      <h1 class="wordmark-xl text-brand-white mb-3">
+        prompt<span class="gradient-blue">POV</span>
+      </h1>
+      <p class="text-brand-gray text-lg max-w-xl mx-auto leading-relaxed">
+        Smart widgets + private AI HUD for video calls.<br />
+        <span class="text-brand-white font-medium">Three naming conventions. One decision.</span>
+      </p>
+      <div class="flex items-center justify-center gap-3 mt-8">
+        <span class="tag" style="background:#1C2A3E; color:#4F8EF7;">promptpov</span>
+        <span class="text-brand-muted">vs</span>
+        <span class="tag" style="background:#1C2A3E; color:#00C2FF;">promptPOV</span>
+        <span class="text-brand-muted">vs</span>
+        <span class="tag" style="background:#1C2A3E; color:#F5A623;">PromptPOV</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-6 py-16 space-y-20">
+
+    <!-- ── VARIANT COMPARISON ── -->
+    <section id="variants">
+      <div class="section-label mb-8">01 — Naming Variant Comparison</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        <!-- promptpov -->
+        <div class="card variant-card p-6 flex flex-col gap-4">
+          <div class="flex items-start justify-between">
+            <span class="tag" style="background:#1C2A1C; color:#3FB950;">Current (Locked)</span>
+          </div>
+          <div class="py-6 text-center">
+            <div class="wordmark-lg text-brand-white">promptpov</div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="text-brand-gray font-medium uppercase text-xs tracking-widest mb-3">Character</div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">Minimalist — feels like a modern SaaS tool (<span class="text-brand-white">linear, notion, figma</span>)</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">One visual weight — no hierarchy implied</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-amber mt-0.5">−</span><span class="text-brand-gray">POV reads as just a suffix, not an acronym with meaning</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-amber mt-0.5">−</span><span class="text-brand-gray">Loses the signal that POV = Point Of View</span></div>
+          </div>
+          <div class="card-inner p-3 mt-2">
+            <div class="text-xs text-brand-gray font-mono">Best for: pure wordmark, dark backgrounds, code contexts</div>
+          </div>
+        </div>
+
+        <!-- promptPOV -->
+        <div class="card variant-card p-6 flex flex-col gap-4" style="border-color: #4F8EF7; box-shadow: 0 0 0 1px #4F8EF7, 0 8px 32px rgba(79,142,247,0.12);">
+          <div class="flex items-start justify-between">
+            <span class="tag" style="background:#1C2A3E; color:#4F8EF7;">Recommended →</span>
+          </div>
+          <div class="py-6 text-center">
+            <div class="wordmark-lg text-brand-white">prompt<span class="pov-accent">POV</span></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="text-brand-gray font-medium uppercase text-xs tracking-widest mb-3">Character</div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">iPhone-style — signals acronym clearly without breaking flow</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">Lowercase <em>prompt</em> stays approachable; uppercase POV = power</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">Works perfectly with accent color on POV</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">Natural word-shape: lowercase base + uppercase cap is ergonomic</span></div>
+          </div>
+          <div class="card-inner p-3 mt-2">
+            <div class="text-xs text-brand-gray font-mono">Best for: marketing, app headers, logo treatment, press kit</div>
+          </div>
+        </div>
+
+        <!-- PromptPOV -->
+        <div class="card variant-card p-6 flex flex-col gap-4">
+          <div class="flex items-start justify-between">
+            <span class="tag" style="background:#2A1E0E; color:#F5A623;">Alternative</span>
+          </div>
+          <div class="py-6 text-center">
+            <div class="wordmark-lg text-brand-white">Prompt<span class="pov-accent-a">POV</span></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="text-brand-gray font-medium uppercase text-xs tracking-widest mb-3">Character</div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">YouTube-style — fully proper, very clear two-word compound</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-green mt-0.5">✓</span><span class="text-brand-gray">Familiar to mainstream audiences, easier in speech/writing</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-amber mt-0.5">−</span><span class="text-brand-gray">Loses the "one word" visual identity — feels more like a product name than a brand</span></div>
+            <div class="flex gap-2 items-start"><span class="text-brand-amber mt-0.5">−</span><span class="text-brand-gray">Less distinctive at small sizes or in code</span></div>
+          </div>
+          <div class="card-inner p-3 mt-2">
+            <div class="text-xs text-brand-gray font-mono">Best for: legal, formal copy, app store listing title</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Comparison at scale -->
+      <div class="card p-8 mt-6">
+        <div class="section-label mb-6">At Scale — All Three Variants</div>
+        <div class="space-y-6">
+          <div class="flex items-baseline gap-6">
+            <div class="w-32 text-xs text-brand-gray font-mono">XL / Hero</div>
+            <div class="flex flex-wrap gap-8 items-baseline">
+              <span style="font-size:3.5rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">promptpov</span>
+              <span style="font-size:3.5rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">prompt<span class="pov-accent">POV</span></span>
+              <span style="font-size:3.5rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">Prompt<span class="pov-accent-a">POV</span></span>
+            </div>
+          </div>
+          <hr class="divider" />
+          <div class="flex items-baseline gap-6">
+            <div class="w-32 text-xs text-brand-gray font-mono">MD / Header</div>
+            <div class="flex flex-wrap gap-8 items-baseline">
+              <span style="font-size:2rem; font-weight:800; letter-spacing:-0.03em;" class="text-brand-white">promptpov</span>
+              <span style="font-size:2rem; font-weight:800; letter-spacing:-0.03em;" class="text-brand-white">prompt<span class="pov-accent">POV</span></span>
+              <span style="font-size:2rem; font-weight:800; letter-spacing:-0.03em;" class="text-brand-white">Prompt<span class="pov-accent-a">POV</span></span>
+            </div>
+          </div>
+          <hr class="divider" />
+          <div class="flex items-baseline gap-6">
+            <div class="w-32 text-xs text-brand-gray font-mono">SM / Nav</div>
+            <div class="flex flex-wrap gap-8 items-baseline">
+              <span style="font-size:1.25rem; font-weight:700; letter-spacing:-0.02em;" class="text-brand-white">promptpov</span>
+              <span style="font-size:1.25rem; font-weight:700; letter-spacing:-0.02em;" class="text-brand-white">prompt<span class="pov-accent">POV</span></span>
+              <span style="font-size:1.25rem; font-weight:700; letter-spacing:-0.02em;" class="text-brand-white">Prompt<span class="pov-accent-a">POV</span></span>
+            </div>
+          </div>
+          <hr class="divider" />
+          <div class="flex items-baseline gap-6">
+            <div class="w-32 text-xs text-brand-gray font-mono">XS / Label</div>
+            <div class="flex flex-wrap gap-6 items-baseline">
+              <span style="font-size:0.85rem; font-weight:700;" class="text-brand-white">promptpov</span>
+              <span style="font-size:0.85rem; font-weight:700;" class="text-brand-white">prompt<span class="pov-accent">POV</span></span>
+              <span style="font-size:0.85rem; font-weight:700;" class="text-brand-white">Prompt<span class="pov-accent-a">POV</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COLOR SYSTEM ── -->
+    <section id="colors">
+      <div class="section-label mb-8">02 — Color System</div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+        <!-- Palette -->
+        <div class="card p-6 space-y-4">
+          <div class="text-sm font-semibold text-brand-white mb-4">Core Palette</div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <div class="swatch mb-2 glow-blue" style="background: linear-gradient(135deg, #4F8EF7, #00C2FF);"></div>
+              <div class="text-xs font-medium text-brand-white">Signal Blue</div>
+              <div class="text-xs text-brand-gray font-mono">#4F8EF7 → #00C2FF</div>
+              <div class="text-xs text-brand-gray mt-0.5">Primary accent · POV highlight · CTA</div>
+            </div>
+            <div>
+              <div class="swatch mb-2 glow-amber" style="background: linear-gradient(135deg, #F5A623, #FF9A3C);"></div>
+              <div class="text-xs font-medium text-brand-white">AI Amber</div>
+              <div class="text-xs text-brand-gray font-mono">#F5A623 → #FF9A3C</div>
+              <div class="text-xs text-brand-gray mt-0.5">AI features · Pro badge · warm accent</div>
+            </div>
+            <div>
+              <div class="swatch mb-2" style="background: #0D1117; border: 1px solid #21262D;"></div>
+              <div class="text-xs font-medium text-brand-white">Void</div>
+              <div class="text-xs text-brand-gray font-mono">#0D1117</div>
+              <div class="text-xs text-brand-gray mt-0.5">Primary background</div>
+            </div>
+            <div>
+              <div class="swatch mb-2" style="background: #161B22; border: 1px solid #21262D;"></div>
+              <div class="text-xs font-medium text-brand-white">Surface</div>
+              <div class="text-xs text-brand-gray font-mono">#161B22</div>
+              <div class="text-xs text-brand-gray mt-0.5">Cards · panels · elevated UI</div>
+            </div>
+            <div>
+              <div class="swatch mb-2" style="background: #F0F6FC;"></div>
+              <div class="text-xs font-medium" style="color:#0D1117">Frost White</div>
+              <div class="text-xs font-mono" style="color:#555">#F0F6FC</div>
+              <div class="text-xs mt-0.5" style="color:#555">Primary text on dark</div>
+            </div>
+            <div>
+              <div class="swatch mb-2" style="background: #8B949E;"></div>
+              <div class="text-xs font-medium text-brand-white">Slate</div>
+              <div class="text-xs text-brand-gray font-mono">#8B949E</div>
+              <div class="text-xs text-brand-gray mt-0.5">Secondary text · labels</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dark / Light modes -->
+        <div class="space-y-3">
+          <!-- Dark mode wordmark -->
+          <div class="card p-6 flex items-center justify-between gap-4">
+            <div>
+              <div class="text-xs text-brand-gray mb-2 font-mono">On dark background</div>
+              <div class="wordmark-lg text-brand-white">prompt<span class="pov-accent">POV</span></div>
+            </div>
+            <div class="text-xs text-brand-gray text-right">
+              <div class="font-mono">#F0F6FC + #4F8EF7</div>
+              <div class="mt-1">Preferred usage</div>
+            </div>
+          </div>
+          <!-- Light mode wordmark -->
+          <div class="p-6 rounded-xl flex items-center justify-between gap-4" style="background:#F0F6FC; border: 1px solid #D0D7DE;">
+            <div>
+              <div class="text-xs mb-2 font-mono" style="color:#8B949E;">On light background</div>
+              <div class="wordmark-lg" style="color:#0D1117;">prompt<span style="color:#2563EB;">POV</span></div>
+            </div>
+            <div class="text-xs text-right" style="color:#8B949E;">
+              <div class="font-mono">#0D1117 + #2563EB</div>
+              <div class="mt-1">Light mode variant</div>
+            </div>
+          </div>
+          <!-- On blue -->
+          <div class="p-6 rounded-xl flex items-center justify-between gap-4" style="background: linear-gradient(135deg, #4F8EF7, #00C2FF);">
+            <div>
+              <div class="text-xs mb-2 font-mono text-white/70">On brand gradient</div>
+              <div class="wordmark-lg text-white">prompt<span style="color:rgba(255,255,255,0.7);">POV</span></div>
+            </div>
+            <div class="text-xs text-right text-white/70">
+              <div class="font-mono">#FFFFFF</div>
+              <div class="mt-1">Promotional / hero</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── TYPOGRAPHY ── -->
+    <section id="typography">
+      <div class="section-label mb-8">03 — Typography</div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+
+        <div class="card p-6 space-y-5">
+          <div class="text-sm font-semibold text-brand-white">Inter — Primary Typeface</div>
+          <div class="space-y-4">
+            <div>
+              <div class="text-xs text-brand-gray font-mono mb-1">Display / 900</div>
+              <div style="font-size:2.5rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">Your POV, prompted.</div>
+            </div>
+            <hr class="divider" />
+            <div>
+              <div class="text-xs text-brand-gray font-mono mb-1">Heading / 700</div>
+              <div style="font-size:1.5rem; font-weight:700; letter-spacing:-0.02em;" class="text-brand-white">Smart widgets for video calls.</div>
+            </div>
+            <hr class="divider" />
+            <div>
+              <div class="text-xs text-brand-gray font-mono mb-1">Subhead / 500</div>
+              <div style="font-size:1.1rem; font-weight:500;" class="text-brand-gray">Public widgets on your feed. Private AI HUD only you can see.</div>
+            </div>
+            <hr class="divider" />
+            <div>
+              <div class="text-xs text-brand-gray font-mono mb-1">Body / 400</div>
+              <div style="font-size:0.9rem; font-weight:400; line-height:1.7;" class="text-brand-gray">Works on Zoom, Teams, FaceTime, Meet, and Webex. No sudo, no admin rights — works on managed Macs.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card p-6 space-y-5">
+          <div class="text-sm font-semibold text-brand-white">Type Scale & Weights</div>
+          <div class="space-y-3">
+            <div class="flex justify-between items-baseline border-b border-brand-border pb-3">
+              <span style="font-size:3rem; font-weight:900; letter-spacing:-0.04em;" class="text-brand-white">Aa</span>
+              <div class="text-right"><div class="text-xs text-brand-gray">48px / 900</div><div class="text-xs text-brand-gray font-mono">Display</div></div>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-brand-border pb-3">
+              <span style="font-size:2rem; font-weight:800; letter-spacing:-0.03em;" class="text-brand-white">Aa</span>
+              <div class="text-right"><div class="text-xs text-brand-gray">32px / 800</div><div class="text-xs text-brand-gray font-mono">Title</div></div>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-brand-border pb-3">
+              <span style="font-size:1.5rem; font-weight:700;" class="text-brand-white">Aa</span>
+              <div class="text-right"><div class="text-xs text-brand-gray">24px / 700</div><div class="text-xs text-brand-gray font-mono">Heading</div></div>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-brand-border pb-3">
+              <span style="font-size:1.1rem; font-weight:600;" class="text-brand-white">Aa</span>
+              <div class="text-right"><div class="text-xs text-brand-gray">18px / 600</div><div class="text-xs text-brand-gray font-mono">Subhead</div></div>
+            </div>
+            <div class="flex justify-between items-baseline border-b border-brand-border pb-3">
+              <span style="font-size:0.95rem; font-weight:400;" class="text-brand-white">Aa</span>
+              <div class="text-right"><div class="text-xs text-brand-gray">15px / 400</div><div class="text-xs text-brand-gray font-mono">Body</div></div>
+            </div>
+            <div class="flex justify-between items-baseline">
+              <span style="font-size:0.75rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;" class="text-brand-gray">LABEL</span>
+              <div class="text-right"><div class="text-xs text-brand-gray">12px / 500 uppercase</div><div class="text-xs text-brand-gray font-mono">Label / Tag</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MARKS & ICONS ── -->
+    <section id="marks">
+      <div class="section-label mb-8">04 — Logo Marks &amp; Icons</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+
+        <!-- Wordmark only -->
+        <div class="card p-6 space-y-4">
+          <div class="text-xs text-brand-gray font-mono">Wordmark — Horizontal</div>
+          <div class="space-y-4 py-4">
+            <div class="flex items-center gap-3">
+              <!-- Icon mark: viewfinder -->
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="36" height="36" rx="8" fill="#161B22"/>
+                <!-- Camera frame corners -->
+                <path d="M8 13V10H13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <path d="M23 10H28V13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <path d="M28 23V26H23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 26H8V23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <!-- Center dot -->
+                <circle cx="18" cy="18" r="3.5" fill="#4F8EF7"/>
+                <!-- Inner ring -->
+                <circle cx="18" cy="18" r="6" stroke="#4F8EF7" stroke-width="1" stroke-opacity="0.4"/>
+              </svg>
+              <div class="wordmark-md text-brand-white">prompt<span class="pov-accent">POV</span></div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <svg width="24" height="24" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="36" height="36" rx="8" fill="#161B22"/>
+                <path d="M8 13V10H13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <path d="M23 10H28V13" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <path d="M28 23V26H23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 26H8V23" stroke="#4F8EF7" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="18" cy="18" r="3.5" fill="#4F8EF7"/>
+                <circle cx="18" cy="18" r="6" stroke="#4F8EF7" stroke-width="1" stroke-opacity="0.4"/>
+              </svg>
+              <div class="wordmark-sm text-brand-white">prompt<span class="pov-accent">POV</span></div>
+            </div>
+          </div>
+          <div class="text-xs text-brand-gray">Icon mark + wordmark lockup. Icon = camera viewfinder motif.</div>
+        </div>
+
+        <!-- Icon mark variants -->
+        <div class="card p-6 space-y-4">
+          <div class="text-xs text-brand-gray font-mono">Icon Mark — Variants</div>
+          <div class="grid grid-cols-3 gap-4 py-4">
+            <!-- v1: viewfinder -->
+            <div class="flex flex-col items-center gap-2">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="10" fill="#161B22"/>
+                <path d="M10 17V12H17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M31 12H38V17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M38 31V36H31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M17 36H10V31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="24" cy="24" r="5" fill="#4F8EF7"/>
+                <circle cx="24" cy="24" r="8.5" stroke="#4F8EF7" stroke-width="1.2" stroke-opacity="0.35"/>
+              </svg>
+              <div class="text-xs text-brand-gray text-center">Viewfinder</div>
+            </div>
+            <!-- v2: p mark -->
+            <div class="flex flex-col items-center gap-2">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="10" fill="url(#grad1)"/>
+                <defs>
+                  <linearGradient id="grad1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#4F8EF7"/>
+                    <stop offset="100%" stop-color="#00C2FF"/>
+                  </linearGradient>
+                </defs>
+                <!-- stylized p -->
+                <text x="11" y="34" font-family="Inter, sans-serif" font-weight="900" font-size="30" fill="white" letter-spacing="-1">p</text>
+                <!-- POV accent dot -->
+                <circle cx="36" cy="13" r="4" fill="white" opacity="0.9"/>
+              </svg>
+              <div class="text-xs text-brand-gray text-center">Lettermark</div>
+            </div>
+            <!-- v3: split frame -->
+            <div class="flex flex-col items-center gap-2">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" rx="10" fill="#0D1117"/>
+                <!-- left half: prompt (solid) -->
+                <rect x="9" y="14" width="13" height="20" rx="3" fill="#F0F6FC" opacity="0.9"/>
+                <!-- right half: POV (outlined/accent) -->
+                <rect x="26" y="14" width="13" height="20" rx="3" fill="none" stroke="#4F8EF7" stroke-width="2"/>
+                <!-- divider line -->
+                <line x1="24" y1="12" x2="24" y2="36" stroke="#4F8EF7" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="2 2"/>
+              </svg>
+              <div class="text-xs text-brand-gray text-center">Split Frame</div>
+            </div>
+          </div>
+          <div class="text-xs text-brand-gray">Three icon mark directions. Viewfinder is the strongest candidate.</div>
+        </div>
+
+        <!-- App icon mockup -->
+        <div class="card p-6 space-y-4">
+          <div class="text-xs text-brand-gray font-mono">App Icon — macOS</div>
+          <div class="flex items-center justify-center py-4">
+            <div style="width:120px; height:120px; border-radius:26px; background:linear-gradient(145deg, #1C2A3E 0%, #0D1117 100%); border:1px solid #4F8EF7; box-shadow: 0 0 40px rgba(79,142,247,0.25), inset 0 1px 0 rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;">
+              <svg width="60" height="60" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 17V12H17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M31 12H38V17" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M38 31V36H31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M17 36H10V31" stroke="#4F8EF7" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="24" cy="24" r="5" fill="#4F8EF7"/>
+                <circle cx="24" cy="24" r="8.5" stroke="#4F8EF7" stroke-width="1.2" stroke-opacity="0.35"/>
+              </svg>
+              <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.02em; color:#F0F6FC;">p<span style="color:#4F8EF7;">POV</span></div>
+            </div>
+          </div>
+          <div class="text-xs text-brand-gray text-center">macOS icon at 120pt — viewfinder + compact wordmark</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── USAGE EXAMPLES ── -->
+    <section id="usage">
+      <div class="section-label mb-8">05 — Usage Examples</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- Marketing headline -->
+        <div class="card p-8 space-y-6 dot-grid">
+          <div class="text-xs text-brand-gray font-mono mb-2">Marketing / Landing Hero</div>
+          <div style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#4F8EF7;">For video professionals</div>
+          <div style="font-size:2.2rem; font-weight:900; letter-spacing:-0.03em; line-height:1.15;" class="text-brand-white">
+            What they see<br/>of your <span class="pov-accent">POV.</span>
+          </div>
+          <div style="font-size:0.95rem; color:#8B949E; line-height:1.6;">
+            Smart widgets on your video feed.<br/>A private AI HUD only you can see.
+          </div>
+          <div class="flex items-center gap-3 pt-2">
+            <button style="background: linear-gradient(135deg, #4F8EF7, #00C2FF); color:white; font-weight:600; font-size:0.85rem; padding:10px 20px; border-radius:8px; border:none; cursor:pointer;">Download for macOS</button>
+            <button style="background:transparent; color:#8B949E; font-weight:500; font-size:0.85rem; padding:10px 16px; border:1px solid #21262D; border-radius:8px; cursor:pointer;">See pricing →</button>
+          </div>
+          <div style="font-size:0.7rem; color:#8B949E; font-family:monospace;">macOS 14+ · Apple Silicon + Intel · Private beta</div>
+        </div>
+
+        <!-- Pricing card -->
+        <div class="card p-6 space-y-4">
+          <div class="text-xs text-brand-gray font-mono mb-2">Pricing Card — Pro + AI tier</div>
+          <div style="background:#161B22; border:1px solid #4F8EF7; border-radius:10px; padding:20px; box-shadow: 0 0 0 1px #4F8EF7;">
+            <div class="flex items-center justify-between mb-3">
+              <div style="font-size:0.9rem; font-weight:700; color:#F0F6FC;">Pro + AI</div>
+              <span class="tag" style="background: linear-gradient(135deg,#4F8EF7,#00C2FF); color:white; font-size:0.6rem;">Most Popular</span>
+            </div>
+            <div style="font-size:2rem; font-weight:900; color:#F0F6FC; letter-spacing:-0.04em;">$29<span style="font-size:1rem; font-weight:400; color:#8B949E;">/mo</span></div>
+            <div class="space-y-2 mt-4">
+              <div class="flex items-center gap-2 text-sm" style="color:#8B949E;"><span style="color:#3FB950;">✓</span> All public widgets, no watermark</div>
+              <div class="flex items-center gap-2 text-sm" style="color:#8B949E;"><span style="color:#3FB950;">✓</span> Full HUD — timers, teleprompter</div>
+              <div class="flex items-center gap-2 text-sm" style="color:#F5A623;"><span>✦</span> AI Assistant (BYOK)</div>
+              <div class="flex items-center gap-2 text-sm" style="color:#F5A623;"><span>✦</span> Pre-meeting briefing</div>
+              <div class="flex items-center gap-2 text-sm" style="color:#8B949E;"><span style="color:#3FB950;">✓</span> Priority support + early access</div>
+            </div>
+            <button style="width:100%; margin-top:16px; background: linear-gradient(135deg, #4F8EF7, #00C2FF); color:white; font-weight:600; font-size:0.85rem; padding:10px; border-radius:8px; border:none; cursor:pointer;">Get promptPOV</button>
+          </div>
+        </div>
+
+        <!-- Badge / watermark widget -->
+        <div class="card p-6 space-y-4">
+          <div class="text-xs text-brand-gray font-mono mb-2">Public Widget — Name Card (video overlay)</div>
+          <div style="background:#1A1A2E; border-radius:10px; padding:20px; position:relative; min-height:180px; display:flex; align-items:flex-end;">
+            <!-- simulated video -->
+            <div style="position:absolute; inset:0; background: linear-gradient(145deg, #1A1A2E, #0D0D1A); border-radius:10px; display:flex; align-items:center; justify-content:center;">
+              <div style="width:60px; height:60px; border-radius:50%; background:#2D333B; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">👤</div>
+            </div>
+            <!-- overlay widget -->
+            <div style="position:relative; z-index:1; background:rgba(13,17,23,0.8); backdrop-filter:blur(8px); border:1px solid rgba(79,142,247,0.3); border-radius:7px; padding:8px 12px; display:flex; align-items:center; gap:8px;">
+              <svg width="16" height="16" viewBox="0 0 48 48" fill="none">
+                <path d="M10 17V12H17" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                <path d="M31 12H38V17" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                <path d="M38 31V36H31" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                <path d="M17 36H10V31" stroke="#4F8EF7" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="24" cy="24" r="5" fill="#4F8EF7"/>
+              </svg>
+              <div>
+                <div style="font-size:0.75rem; font-weight:700; color:#F0F6FC;">Brandon Burk</div>
+                <div style="font-size:0.6rem; color:#8B949E;">Requisite Logic LLC · 2:34 PM CDT</div>
+              </div>
+            </div>
+          </div>
+          <div class="text-xs text-brand-gray">How the name card public widget appears to other call participants.</div>
+        </div>
+
+        <!-- HUD mockup -->
+        <div class="card p-6 space-y-4">
+          <div class="text-xs text-brand-gray font-mono mb-2">Private HUD — AI Assistant panel</div>
+          <div style="background:#0A0E15; border-radius:10px; padding:16px; min-height:180px;">
+            <div class="hud-panel p-3 space-y-2">
+              <div class="flex items-center justify-between">
+                <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#4F8EF7;">AI Assistant</div>
+                <div style="font-size:0.6rem; color:#8B949E; font-family:monospace;">BYOK · claude-sonnet</div>
+              </div>
+              <div style="background:rgba(79,142,247,0.08); border-radius:5px; padding:8px; font-size:0.72rem; color:#8B949E; line-height:1.5;">
+                Pre-meeting briefing ready. Next: <span style="color:#F0F6FC;">Weekly 1:1 with Alice</span> in <span style="color:#F5A623; font-weight:600;">8 min</span>.
+              </div>
+              <div style="font-size:0.72rem; color:#8B949E; border-top:1px solid #21262D; padding-top:8px;">Ask a follow-up →</div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <div class="hud-panel px-3 py-1.5 text-center flex-1" style="font-size:0.7rem; color:#8B949E;">⏱ 42:00</div>
+              <div class="hud-panel px-3 py-1.5 text-center flex-1" style="font-size:0.7rem; color:#8B949E;">🛑 5:00</div>
+              <div class="hud-panel px-3 py-1.5 text-center flex-1" style="font-size:0.7rem; color:#F5A623;">🍅 Focus</div>
+            </div>
+          </div>
+          <div class="text-xs text-brand-gray">HUD panel — invisible to call participants. Dims when you Cmd-Tab away.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── MOCKUPS: ALL THREE VARIANTS IN CONTEXT ── -->
+    <section id="mockups">
+      <div class="section-label mb-8">06 — All Three Variants in App Context</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+        <!-- promptpov nav -->
+        <div class="card overflow-hidden">
+          <div style="background:#0D1117; border-bottom:1px solid #21262D; padding:10px 16px; display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:1.1rem; font-weight:700; letter-spacing:-0.02em; color:#F0F6FC;">promptpov</span>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span style="font-size:0.7rem; color:#8B949E;">Pricing</span>
+              <span style="background:linear-gradient(135deg,#4F8EF7,#00C2FF); color:white; font-size:0.65rem; font-weight:600; padding:5px 10px; border-radius:6px;">Download</span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div style="font-size:1.4rem; font-weight:900; letter-spacing:-0.03em; color:#F0F6FC;">What they see<br/>of your pov.</div>
+            <div style="font-size:0.75rem; color:#8B949E;">Smart widgets + private AI HUD for video calls.</div>
+          </div>
+          <div class="px-4 pb-4"><span class="tag" style="background:#1C2A1C; color:#3FB950; font-size:0.6rem;">all lowercase</span></div>
+        </div>
+
+        <!-- promptPOV nav -->
+        <div class="card overflow-hidden" style="border-color:#4F8EF7; box-shadow:0 0 0 1px #4F8EF7;">
+          <div style="background:#0D1117; border-bottom:1px solid #4F8EF7; padding:10px 16px; display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:1.1rem; font-weight:700; letter-spacing:-0.02em; color:#F0F6FC;">prompt<span style="color:#4F8EF7;">POV</span></span>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span style="font-size:0.7rem; color:#8B949E;">Pricing</span>
+              <span style="background:linear-gradient(135deg,#4F8EF7,#00C2FF); color:white; font-size:0.65rem; font-weight:600; padding:5px 10px; border-radius:6px;">Download</span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div style="font-size:1.4rem; font-weight:900; letter-spacing:-0.03em; color:#F0F6FC;">What they see<br/>of your <span style="color:#4F8EF7;">POV.</span></div>
+            <div style="font-size:0.75rem; color:#8B949E;">Smart widgets + private AI HUD for video calls.</div>
+          </div>
+          <div class="px-4 pb-4"><span class="tag" style="background:#1C2A3E; color:#4F8EF7; font-size:0.6rem;">recommended ✦</span></div>
+        </div>
+
+        <!-- PromptPOV nav -->
+        <div class="card overflow-hidden">
+          <div style="background:#0D1117; border-bottom:1px solid #21262D; padding:10px 16px; display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:1.1rem; font-weight:700; letter-spacing:-0.02em; color:#F0F6FC;">Prompt<span style="color:#F5A623;">POV</span></span>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span style="font-size:0.7rem; color:#8B949E;">Pricing</span>
+              <span style="background:linear-gradient(135deg,#F5A623,#FF9A3C); color:white; font-size:0.65rem; font-weight:600; padding:5px 10px; border-radius:6px;">Download</span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <div style="font-size:1.4rem; font-weight:900; letter-spacing:-0.03em; color:#F0F6FC;">What they see<br/>of your <span style="color:#F5A623;">POV.</span></div>
+            <div style="font-size:0.75rem; color:#8B949E;">Smart widgets + private AI HUD for video calls.</div>
+          </div>
+          <div class="px-4 pb-4"><span class="tag" style="background:#2A1E0E; color:#F5A623; font-size:0.6rem;">title case alt</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── DECISION SUMMARY ── -->
+    <section class="card p-8">
+      <div class="section-label mb-6">07 — Decision Summary</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <div style="font-size:0.8rem; font-weight:700; color:#3FB950; margin-bottom:8px;">promptpov</div>
+          <div style="font-size:0.85rem; color:#8B949E; line-height:1.6;">Best if you want to position as a tool-first product in the linear/notion tradition. Works when your audience is dev-adjacent or design-forward. <strong style="color:#F0F6FC;">Loses meaning of POV.</strong></div>
+        </div>
+        <div style="border-left:2px solid #4F8EF7; padding-left:24px;">
+          <div style="font-size:0.8rem; font-weight:700; color:#4F8EF7; margin-bottom:8px;">promptPOV ← recommended</div>
+          <div style="font-size:0.85rem; color:#8B949E; line-height:1.6;">Best overall. iPhone/FaceTime convention — everyone understands it. Signals the acronym. Lowercase prompt feels human + accessible; uppercase POV carries weight. <strong style="color:#F0F6FC;">Works at every size, in every context.</strong></div>
+        </div>
+        <div>
+          <div style="font-size:0.8rem; font-weight:700; color:#F5A623; margin-bottom:8px;">PromptPOV</div>
+          <div style="font-size:0.85rem; color:#8B949E; line-height:1.6;">Best for mainstream + non-technical audiences. YouTube-style. Clear, readable, two-word compound. <strong style="color:#F0F6FC;">Feels slightly more "product" than "brand."</strong> Good fallback if promptPOV tests poorly in surveys.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-brand-border mt-12 py-8">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <span style="font-size:1.1rem; font-weight:700; color:#F0F6FC;">prompt<span class="pov-accent">POV</span></span>
+      <div style="font-size:0.75rem; color:#8B949E;">Brand Design System · Requisite Logic LLC · <span style="font-family:monospace;">v0.1</span></div>
+    </div>
+  </footer>
+
+</body>
+</html>
